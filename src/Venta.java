@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public class Venta {
+public class Venta<Cliente> {
     // Atributos privados (-)
     private int idVenta;
     private String fecha;
     private double total;
     private Cliente cliente;
-    private Empleado empleado;
+    private  empleado;
     private ArrayList<DetalleVenta> detalles;
 
     // Constructor público (+)

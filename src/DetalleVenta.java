@@ -1,29 +1,23 @@
 
-
 public class DetalleVenta {
-    // Atributos privados
+    // Atributos privados (-)
     private int idDetalle;
     private int cantidad;
     private double subtotal;
     private Producto producto;
 
-    // Constructor
+    // Constructor público (+)
     public DetalleVenta(int id, int cant, Producto prod) {
         this.idDetalle = id;
         this.cantidad = cant;
         this.producto = prod;
-        // El subtotal usualmente se calcula automáticamente, 
-        // pero podemos inicializarlo invocando el método correspondiente.
-        calcularSubtotal();
+        // Se calcula el subtotal automáticamente basándose en el producto y la cantidad
+        this.subtotal = calcularSubtotal();
     }
 
-    // Getters y Setters
+    // Métodos públicos (+)
     public int getIdDetalle() {
         return idDetalle;
-    }
-
-    public void setIdDetalle(int id) {
-        this.idDetalle = id;
     }
 
     public int getCantidad() {
@@ -32,8 +26,7 @@ public class DetalleVenta {
 
     public void setCantidad(int cant) {
         this.cantidad = cant;
-        // Si cambia la cantidad, recalculamos el subtotal
-        calcularSubtotal();
+        this.subtotal = calcularSubtotal(); // Actualiza el subtotal si cambia la cantidad
     }
 
     public Producto getProducto() {
@@ -42,26 +35,20 @@ public class DetalleVenta {
 
     public void setProducto(Producto prod) {
         this.producto = prod;
-        // Si cambia el producto, recalculamos el subtotal
-        calcularSubtotal();
+        this.subtotal = calcularSubtotal(); // Actualiza el subtotal si cambia el producto
+    }
+
+    public double calcularSubtotal() {
+        if (producto != null) {
+            return this.cantidad * producto.getPrecioVenta();
+        }
+        return 0.0;
     }
 
     public double getSubtotal() {
         return subtotal;
     }
 
-    // Métodos de lógica del negocio del diagrama
-    public double calcularSubtotal() {
-        if (this.producto != null) {
-            // Asumiendo que la clase Producto tiene el método getPrecioVenta()
-            this.subtotal = this.cantidad * this.producto.getPrecioVenta();
-        } else {
-            this.subtotal = 0.0;
-        }
-        return this.subtotal;
-    }
-
-    // Método toString
     @Override
     public String toString() {
         return "DetalleVenta{" +
